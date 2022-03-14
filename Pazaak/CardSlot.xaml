@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Pazaak.CardSlot"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Pazaak"
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="300"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <UserControl.Resources>
+        <local:FixedRatioConverter x:Key="FixedRatio"/>
+    </UserControl.Resources>
+
+    <Border MinWidth="60" MinHeight="80" Height="{Binding ActualWidth, Converter={StaticResource FixedRatio}}"
+            Margin="5" Background="{Binding CardColor}"
+            BorderThickness="3" CornerRadius="3" BorderBrush="{Binding CardBorder}">
+        <TextBlock Name="Allo" Padding="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" 
+                    Text="{Binding CardText}"/>
+    </Border>
+</UserControl>

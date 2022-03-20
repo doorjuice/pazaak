@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pazaak"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="MainWindow" Height="450" Width="800">
 
     <Grid x:Name="GameGrid">
@@ -13,11 +14,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
-        <DockPanel x:Name="PlayerPanel" Grid.Column="0" LastChildFill="True">
+        <DockPanel x:Name="PlayerPanel" Grid.Column="0" LastChildFill="True" DataContext="{Binding LocalPlayer}">
             <DockPanel DockPanel.Dock="Top" LastChildFill="True">
-                <TextBlock Padding="10" Text="Wins" DockPanel.Dock="Right"/>
-                <TextBlock Padding="10" Text="Score" DockPanel.Dock="Right"/>
-                <TextBlock HorizontalAlignment="Left" Padding="10" Text="PlayerName"/>
+                <TextBlock Padding="10" DockPanel.Dock="Right" Text="{Binding NbWins}"/>
+                <TextBlock Padding="10" DockPanel.Dock="Right" Text="{Binding CurrentScore}"/>
+                <TextBlock HorizontalAlignment="Left" Padding="10" Text="{Binding Name}"/>
             </DockPanel>
 
             <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">
@@ -26,15 +27,22 @@
                 <TextBlock HorizontalAlignment="Left" Padding="10" TextWrapping="Wrap" Text="TimeLeft"/>
             </DockPanel>
 
-            <StackPanel x:Name="Hand" DockPanel.Dock="Bottom" Margin="5" HorizontalAlignment="Center" Orientation="Horizontal"
-                        Style="{StaticResource Active}">
-                <local:CardSlot/>
-                <local:CardSlot/>
-                <local:CardSlot/>
-                <local:CardSlot/>
-            </StackPanel>
+            <ItemsControl x:Name="Hand" DockPanel.Dock="Bottom" ItemsSource="{Binding Hand.Cards}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Margin="5" HorizontalAlignment="Center" Orientation="Horizontal"
+                        Style="{StaticResource Active}" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-            <local:DeckLayout x:Name="Table" VerticalAlignment="Stretch" Margin="5" />
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:CardSlot/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!--<local:DeckLayout x:Name="Table" VerticalAlignment="Stretch" Margin="5" />-->
         </DockPanel>
     </Grid>
 </Window>

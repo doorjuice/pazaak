@@ -26,16 +26,24 @@ namespace Pazaak
     {
         public MainWindow()
         {
-            InitializeComponent();
             Log.Start(Log.LogLevel.INFO);
 
-            Player p1 = new("Revan"), p2 = new("Malak");
-            Game test = new(p1, p2);
-            Player winner = test.StartGame();
-            Console.WriteLine($"{winner.Name} is the new champion!");
+            LocalPlayer = new("Revan"); Opponent = new("Malak");
+            CurrentGame = new(LocalPlayer, Opponent);
+
+            InitializeComponent();
+
+            LocalPlayer.Hand.AddCard(new Card(9));
+
+            //Player winner = test.StartGame();
+            //Console.WriteLine($"{winner.Name} is the new champion!");
 
             Log.Stop();
         }
+
+        public Player LocalPlayer { get; }
+        public Player Opponent { get; set; }
+        public Game CurrentGame { get; set; }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

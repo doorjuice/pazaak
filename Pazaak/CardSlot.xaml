@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Pazaak"
              mc:Ignorable="d"
-             d:DesignHeight="400" d:DesignWidth="300"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             d:DesignHeight="400" d:DesignWidth="300">
 
     <UserControl.Resources>
         <local:FixedRatioConverter x:Key="FixedRatio"/>
@@ -16,6 +15,6 @@
             Margin="5" Background="{Binding CardColor}"
             BorderThickness="3" CornerRadius="3" BorderBrush="{Binding CardBorder}">
         <TextBlock Name="Allo" Padding="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center" 
-                    Text="{Binding CardText}"/>
+                    Text="{Binding Value}"/>
     </Border>
 </UserControl>

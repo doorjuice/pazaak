@@ -1,4 +1,5 @@
-﻿using Log = TinyLogger;
+﻿using System.ComponentModel;
+using Log = TinyLogger;
 
 namespace DAL
 {
@@ -9,16 +10,18 @@ namespace DAL
         Busted
     }
 
-    public class Player : IComparable<Player>
+    public class Player : IComparable<Player>, INotifyPropertyChanged
     {
-        public readonly string Name;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private Deck table, hand;
-        
+        private Deck table;
+
         public Player(string name)
         {
             Name = name;
-            hand = new Deck(4);
+            Hand = new Deck(4);
+            Hand.AddCard(new Card(5));
+            Hand.AddCard(new Card(6));
             table = new Deck(9);
             CurrentStatus = Status.Active;
         }
@@ -29,6 +32,9 @@ namespace DAL
             CurrentStatus = Status.Active;
             Log.Debug($"{Name}'s table was reset.");
         }
+
+        public string Name { get; }
+        public Deck Hand { get; }
 
         public int NbWins { get; set; }
         public int CurrentScore { get { return table.TotalValue; } }
@@ -67,5 +73,8 @@ namespace DAL
             else
                 return CurrentScore.CompareTo(other.CurrentScore);
         }
+
+        protected void OnPropertyChanged(string propertyName)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

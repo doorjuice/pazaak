@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using DAL;
+
 namespace Pazaak
 {
     /// <summary>
@@ -41,7 +43,13 @@ namespace Pazaak
         public CardSlot()
         {
             InitializeComponent();
-            Allo.Text = "Card";
+            Loaded += CardSlot_Loaded;
+        }
+
+        private void CardSlot_Loaded(object sender, RoutedEventArgs e)
+        {
+            Card card = (Card)DataContext;
+            Allo.Text = $"Card: {card.Value}";
         }
 
         public bool Playable { get { return type > CardType.MainDeck; } }

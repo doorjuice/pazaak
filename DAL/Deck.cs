@@ -18,34 +18,33 @@ namespace DAL
         }
 
         public readonly int MaxCards;
-
-        private readonly List<Card> cards;
         private readonly Random rng;
 
         public Deck(int maxCards, int rngSeed = 0)
         {
             MaxCards = maxCards;
-            cards = new List<Card>(MaxCards);
+            Cards = new List<Card>(MaxCards);
             if (rngSeed > 0)
                 rng = new Random(rngSeed);
             else
                 rng = new Random();
         }
 
-        public bool IsEmpty { get { return cards.Count == 0;} }
-        public bool IsFull { get { return cards.Count == MaxCards; } }
-        public int TotalValue { get { return cards.Aggregate(0, (agg, card) => agg + card.Value); } }
+        public List<Card> Cards { get; }
+        public bool IsEmpty { get { return Cards.Count == 0;} }
+        public bool IsFull { get { return Cards.Count == MaxCards; } }
+        public int TotalValue { get { return Cards.Aggregate(0, (agg, card) => agg + card.Value); } }
 
         public void AddCard(Card card)
         {
             if (IsFull)
                 throw new Exception($"Deck is full (max {MaxCards} cards)");
-            cards.Add(card);
+            Cards.Add(card);
         }
 
         public Card TakeCard(Card card)
         {
-            if (!cards.Remove(card))
+            if (!Cards.Remove(card))
                 throw new Exception($"No such card <{card}> in the deck");
             return card;
         }
@@ -54,9 +53,9 @@ namespace DAL
         {
             if (IsEmpty)
                 throw new Exception("Deck is empty");
-            int index = rng.Next(cards.Count);
-            Card pick = cards[index];
-            cards.RemoveAt(index);
+            int index = rng.Next(Cards.Count);
+            Card pick = Cards[index];
+            Cards.RemoveAt(index);
             return pick;
         }
     }

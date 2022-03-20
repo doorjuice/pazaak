@@ -43,13 +43,6 @@ namespace Pazaak
         public CardSlot()
         {
             InitializeComponent();
-            Loaded += CardSlot_Loaded;
-        }
-
-        private void CardSlot_Loaded(object sender, RoutedEventArgs e)
-        {
-            Card card = (Card)DataContext;
-            Allo.Text = $"Card: {card.Value}";
         }
 
         public bool Playable { get { return type > CardType.MainDeck; } }
@@ -59,6 +52,12 @@ namespace Pazaak
         {
             get => (Brush)GetValue(BorderProperty);
             set => SetValue(BorderProperty, value);
+        }
+
+        private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            Card card = (Card)e.NewValue;
+            Allo.Text = $"Card: {card.Value}";
         }
     }
 

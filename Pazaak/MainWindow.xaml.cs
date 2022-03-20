@@ -33,7 +33,7 @@ namespace Pazaak
 
             InitializeComponent();
 
-            LocalPlayer.Hand.AddCard(new Card(9));
+            LocalPlayer.Hand.AddCard(new StandardCard(9));
 
             //Player winner = test.StartGame();
             //Console.WriteLine($"{winner.Name} is the new champion!");

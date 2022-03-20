@@ -58,7 +58,7 @@ namespace DAL
 
         public override string ToString()
         {
-            return Toggleable ? $"{fixedValue}±{Math.Abs(toggleValue)}" : base.ToString();
+            return Toggleable ? $"±{Math.Abs(toggleValue)}" : base.ToString();
         }
     }
 }

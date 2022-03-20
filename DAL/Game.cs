@@ -5,14 +5,14 @@ namespace DAL
     public class Game
     {
         private readonly List<Player> allPlayers;
-        private readonly Deck mainDeck;
+        private readonly RandomDeck mainDeck;
 
         public Game(List<Player> players)
         {
             if (players.Count < 2)
                 throw new ArgumentException("Must have at least 2 players to start a game");
             allPlayers = players;
-            mainDeck = Deck.GenMainDeck();
+            mainDeck = RandomDeck.GenMainDeck();
         }
 
         public Game(params Player[] players) : this(players.ToList()) { }

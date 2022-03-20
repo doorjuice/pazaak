@@ -20,8 +20,8 @@ namespace DAL
         {
             Name = name;
             Hand = new Deck(4);
-            Hand.AddCard(new Card(5));
-            Hand.AddCard(new Card(6));
+            Hand.AddCard(new StandardCard(5));
+            Hand.AddCard(new StandardCard(6));
             table = new Deck(9);
             CurrentStatus = Status.Active;
         }

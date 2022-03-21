@@ -14,30 +14,29 @@ namespace DAL
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private Deck table;
-
         public Player(string name)
         {
             Name = name;
-            Hand = new Deck(4);
+            Hand = new FixedDeck(4);
             Hand.AddCard(new StandardCard(5));
             Hand.AddCard(new StandardCard(6));
-            table = new Deck(9);
+            Table = new FixedDeck(9);
             CurrentStatus = Status.Active;
         }
 
         public void Reset()
         {
-            table = new Deck(9);
+            Table = new FixedDeck(9);
             CurrentStatus = Status.Active;
             Log.Debug($"{Name}'s table was reset.");
         }
 
         public string Name { get; }
         public Deck Hand { get; }
+        public Deck Table { get; private set; }
 
         public int NbWins { get; set; }
-        public int CurrentScore { get { return table.TotalValue; } }
+        public int CurrentScore { get { return Table.TotalValue; } }
         public Status CurrentStatus { get; private set; }
 
         public Status PlayTurn(Card newCard)
@@ -45,11 +44,11 @@ namespace DAL
             if (CurrentStatus != Status.Active)
                 throw new InvalidOperationException($"Player {Name} is {CurrentStatus}");
 
-            table.AddCard(newCard);
+            Table.AddCard(newCard);
             Log.Info($"{Name}'s turn starts: Received {newCard, -3} (Total={CurrentScore}).");
 
             CurrentStatus = ChooseAction();
-            if (table.TotalValue > 20)
+            if (Table.TotalValue > 20)
                 CurrentStatus = Status.Busted;
 
             Log.Info($"  {Name}'s turn ends: {CurrentStatus, -12} (Total={CurrentScore}).");
@@ -58,7 +57,7 @@ namespace DAL
 
         protected Status ChooseAction()
         {
-            if (table.TotalValue <= 15)
+            if (Table.TotalValue <= 15)
                 return Status.Active;
             else
                 return Status.Standing;

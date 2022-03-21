@@ -38,7 +38,7 @@ namespace Pazaak
 
         private enum CardType { Placeholder, MainDeck, Positive, Negative, Toggle }
         private CardType type = CardType.Placeholder;
-        private int value = 0;
+        private Card? card;
 
         public CardSlot()
         {
@@ -46,7 +46,7 @@ namespace Pazaak
         }
 
         public bool Playable { get { return type > CardType.MainDeck; } }
-        public string CardText { get { return value == 0 ? "" : value.ToString(); } }
+        public string CardText { get { return card?.Value.ToString() ?? ""; } }
         public Brush CardColor { get { return Palette[(int)type]; } }
         public Brush CardBorder
         {
@@ -56,8 +56,9 @@ namespace Pazaak
 
         private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Card card = (Card)e.NewValue;
-            Allo.Text = $"Card: {card.Value}";
+            card = e.NewValue as Card;
+            Allo.Text = $"Card: {card?.Value}";
+            this.DataContext = this;
         }
     }
 

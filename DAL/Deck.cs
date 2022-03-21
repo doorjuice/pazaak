@@ -53,7 +53,11 @@ namespace DAL
         {
             if (IsFull)
                 throw new Exception($"Deck is full (max {MaxCards} cards)");
-            Cards[nbCards++] = card;
+            if (Cards[nbCards] == placeHolder)
+                Cards[nbCards] = card;
+            else
+                Cards[Cards.IndexOf(placeHolder)] = card;
+            nbCards++;
         }
 
         public override Card TakeCard(Card card)

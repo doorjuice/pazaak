@@ -42,7 +42,21 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <!--<local:DeckLayout x:Name="Table" VerticalAlignment="Stretch" Margin="5" />-->
+            <ItemsControl x:Name="Table" VerticalAlignment="Stretch" Margin="5" ItemsSource="{Binding Table.Cards}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Margin="5"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:CardSlot/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            
+            <!--<local:DeckLayout x:Name="Table" VerticalAlignment="Stretch" Margin="5" DataContext="{Binding Table.Cards}"/>-->
         </DockPanel>
     </Grid>
 </Window>

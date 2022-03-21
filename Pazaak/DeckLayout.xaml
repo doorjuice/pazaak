@@ -7,8 +7,7 @@
              mc:Ignorable="d"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="450" d:DesignWidth="800">
-        <UniformGrid Columns="{Binding NbColumns}" SizeChanged="UniformGrid_SizeChanged"
-                     Background="Aqua">
+        <UniformGrid Columns="{Binding NbColumns}" SizeChanged="UniformGrid_SizeChanged">
             <local:CardSlot/>
             <local:CardSlot/>
             <local:CardSlot/>

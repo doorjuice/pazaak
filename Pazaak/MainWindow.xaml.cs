@@ -24,6 +24,10 @@ namespace Pazaak
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Player LocalPlayer { get; }
+        public Player Opponent { get; set; }
+        public Game CurrentGame { get; set; }
+
         public MainWindow()
         {
             Log.Start(Log.LogLevel.INFO);
@@ -40,10 +44,6 @@ namespace Pazaak
 
             Log.Stop();
         }
-
-        public Player LocalPlayer { get; }
-        public Player Opponent { get; set; }
-        public Game CurrentGame { get; set; }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
